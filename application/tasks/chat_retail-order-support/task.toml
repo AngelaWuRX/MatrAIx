@@ -1,0 +1,25 @@
+version = "1.0"
+artifacts = ["/app/output"]
+
+[task]
+name = "application/chat-retail-order-support"
+
+[metadata]
+difficulty = "medium"
+type = "chatbot"
+domain = "commerce-retail"
+tags = ["customer support", "order issue", "returns", "refund", "multi turn chat"]
+
+[verifier]
+timeout_sec = 300.0
+
+[agent]
+timeout_sec = 600.0
+
+[environment]
+definition = "application/chat_retail-order-support"
+build_timeout_sec = 600.0
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+gpus = 0

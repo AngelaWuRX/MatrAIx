@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "1.0",
+  "contextRules": [
+    {
+      "match": {
+        "contextType": "task_outcome"
+      },
+      "summaryDirectives": [
+        {
+          "id": "task_outcome.reason_by_status",
+          "title": "Outcome reason by status",
+          "targetFacetKey": "outcome_reason",
+          "groupByFacetKey": "outcome_status",
+          "groupByMode": "categorical",
+          "summaryKind": "llm_bucket_summary"
+        }
+      ]
+    },
+    {
+      "match": {
+        "contextType": "conversation_summary"
+      },
+      "summaryDirectives": [
+        {
+          "id": "conversation_summary.notes_by_path",
+          "title": "Process notes by conversation path",
+          "targetFacetKey": "process_notes",
+          "groupByFacetKey": "conversation_path",
+          "groupByMode": "categorical",
+          "summaryKind": "llm_bucket_summary"
+        }
+      ]
+    },
+    {
+      "match": {
+        "contextType": "user_feedback"
+      },
+      "summaryDirectives": [
+        {
+          "id": "user_feedback.reason_by_need",
+          "title": "Feedback reason by need satisfaction",
+          "targetFacetKey": "feedback_reason",
+          "groupByFacetKey": "need_constraint_satisfaction",
+          "groupByMode": "categorical",
+          "summaryKind": "llm_bucket_summary"
+        }
+      ]
+    }
+  ]
+}
