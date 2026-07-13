@@ -1,0 +1,25 @@
+version = "1.0"
+artifacts = ["/app/output"]
+
+[task]
+name = "application/chat-clinic-appointment"
+
+[metadata]
+difficulty = "medium"
+type = "chatbot"
+domain = "medical-consultation"
+tags = ["appointment booking", "healthcare scheduling", "triage", "multi turn chat"]
+
+[verifier]
+timeout_sec = 300.0
+
+[agent]
+timeout_sec = 600.0
+
+[environment]
+definition = "application/chat_clinic-appointment"
+build_timeout_sec = 600.0
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+gpus = 0
