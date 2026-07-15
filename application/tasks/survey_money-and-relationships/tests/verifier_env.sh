@@ -14,7 +14,7 @@ else
   if [ ! -f "${TESTS_DIR}/test_state.py" ] && [ -f "${SCRIPT_DIR}/test_state.py" ]; then
     TESTS_DIR="${SCRIPT_DIR}"
   fi
-  VERIFIER_DIR="${HARBOR_VERIFIER_DIR:-${PERSONABENCH_VERIFIER_DIR:-/logs/verifier}}"
+  VERIFIER_DIR="${HARBOR_VERIFIER_DIR:-/logs/verifier}"
   if ! mkdir -p "${VERIFIER_DIR}" 2>/dev/null; then
     VERIFIER_DIR="${TRIAL_ROOT}/verifier"
   fi

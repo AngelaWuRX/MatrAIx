@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 
 OUTPUT_DIR = Path(
-    os.environ.get("PERSONABENCH_OUTPUT_DIR")
+    os.environ.get("HARBOR_OUTPUT_DIR")
     or os.environ.get("MATRIX_OUTPUT_DIR")
     or "/app/output"
 )
@@ -17,7 +17,7 @@ EVENT_KEYS = {"timestamp", "actor", "action", "context", "outcome"}
 def _verifier_dir() -> Path:
     base = (
         os.environ.get("HARBOR_VERIFIER_DIR")
-        or os.environ.get("PERSONABENCH_VERIFIER_DIR")
+        or os.environ.get("HARBOR_VERIFIER_DIR")
         or "/logs/verifier"
     )
     path = Path(base)
@@ -264,7 +264,7 @@ def main() -> int:
     _write_structured_output(
         {
             "schemaVersion": "1.0",
-            "artifactType": "personabench.trial_evaluation",
+            "artifactType": "matraix.trial_evaluation",
             "taskType": "survey",
             "presenceCheck": {
                 "passed": True,
