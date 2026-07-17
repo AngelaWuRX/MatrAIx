@@ -1,0 +1,69 @@
+services:
+  main:
+    depends_on:
+      mental-health-support-chatbot:
+        condition: service_healthy
+      retail-support-chatbot:
+        condition: service_healthy
+      clinic-booking-chatbot:
+        condition: service_healthy
+      budget-coaching-chatbot:
+        condition: service_healthy
+      dev-help-chatbot:
+        condition: service_healthy
+
+  mental-health-support-chatbot:
+    build:
+      context: ./grounded-chatbot
+    environment:
+      SIDECAR_BOT: mental_health_bot
+    expose:
+      - "8000"
+    healthcheck: &grounded_healthcheck
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import socket; s=socket.create_connection(('localhost',8000),timeout=2); s.close()",
+        ]
+      interval: 2s
+      timeout: 5s
+      retries: 15
+      start_period: 5s
+
+  retail-support-chatbot:
+    build:
+      context: ./grounded-chatbot
+    environment:
+      SIDECAR_BOT: retail_support_bot
+    expose:
+      - "8000"
+    healthcheck: *grounded_healthcheck
+
+  clinic-booking-chatbot:
+    build:
+      context: ./grounded-chatbot
+    environment:
+      SIDECAR_BOT: clinic_booking_bot
+    expose:
+      - "8000"
+    healthcheck: *grounded_healthcheck
+
+  budget-coaching-chatbot:
+    build:
+      context: ./grounded-chatbot
+    environment:
+      SIDECAR_BOT: budget_coach_bot
+    expose:
+      - "8000"
+    healthcheck: *grounded_healthcheck
+
+  dev-help-chatbot:
+    build:
+      context: ./grounded-chatbot
+    environment:
+      SIDECAR_BOT: dev_helper_bot
+    expose:
+      - "8000"
+    healthcheck: *grounded_healthcheck

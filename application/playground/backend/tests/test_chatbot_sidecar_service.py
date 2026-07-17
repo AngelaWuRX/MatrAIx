@@ -10,12 +10,21 @@ from backend.service import chatbot_sidecar_service as svc
 
 
 def test_resolve_health_url_defaults(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.delenv("CHATBOT_API_URL", raising=False)
-    monkeypatch.delenv("CHATBOT_MCP_URL", raising=False)
+    for env in (
+        "CHATBOT_API_URL",
+        "CHATBOT_MCP_URL",
+        "CHATBOT_UPSTREAM_MENTAL_HEALTH",
+        "MENTAL_HEALTH_CHATBOT_URL",
+        "CHATBOT_UPSTREAM_DEV",
+        "DEV_CHATBOT_URL",
+    ):
+        monkeypatch.delenv(env, raising=False)
     assert svc.resolve_health_url("recai") == "http://127.0.0.1:8000"
     assert svc.resolve_health_url("finance_openbb") == "http://127.0.0.1:8901"
     assert svc.resolve_health_url("medical_assistant") == "http://127.0.0.1:8902"
     assert svc.resolve_health_url("acme_support_mcp") == "http://127.0.0.1:8903"
+    assert svc.resolve_health_url("mental_health_bot") == "http://127.0.0.1:8906"
+    assert svc.resolve_health_url("dev_helper_bot") == "http://127.0.0.1:8910"
 
 
 def test_sidecar_status_unknown_application() -> None:
@@ -32,6 +41,11 @@ def test_list_sidecar_statuses(monkeypatch: pytest.MonkeyPatch) -> None:
         "medical_assistant",
         "acme_support_api",
         "acme_support_mcp",
+        "mental_health_bot",
+        "retail_support_bot",
+        "clinic_booking_bot",
+        "budget_coach_bot",
+        "dev_helper_bot",
     }
     assert all(item["ok"] for item in statuses)
     by_id = {item["applicationId"]: item for item in statuses}
@@ -40,6 +54,11 @@ def test_list_sidecar_statuses(monkeypatch: pytest.MonkeyPatch) -> None:
     assert by_id["medical_assistant"]["canStart"] is True
     assert by_id["acme_support_api"]["canStart"] is True
     assert by_id["acme_support_mcp"]["canStart"] is True
+    assert by_id["mental_health_bot"]["canStart"] is True
+    assert by_id["retail_support_bot"]["canStart"] is True
+    assert by_id["clinic_booking_bot"]["canStart"] is True
+    assert by_id["budget_coach_bot"]["canStart"] is True
+    assert by_id["dev_helper_bot"]["canStart"] is True
 
 
 def test_start_sidecar_runs_compose_for_sidecar_only(

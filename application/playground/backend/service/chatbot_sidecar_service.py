@@ -84,6 +84,65 @@ _SIDECAR_SPECS: dict[str, SidecarSpec] = {
         legacy_env=None,
         probe="tcp",
     ),
+    # Grounded chatbot tasks (chat_mental-health-support, chat_retail-order-support,
+    # chat_clinic-appointment, chat_budget-coach, chat_dev-helper). One image, five
+    # services, selected by SIDECAR_BOT; see
+    # environment/task-environments/application/chatbot-api-sidecar_grounded-chatbots.
+    "mental_health_bot": SidecarSpec(
+        application_id="mental_health_bot",
+        compose_dir=(
+            "environment/task-environments/application/chatbot-api-sidecar_grounded-chatbots"
+        ),
+        service_name="mental-health-support-chatbot",
+        build_context="grounded-chatbot",
+        host_port=8906,
+        primary_env="CHATBOT_UPSTREAM_MENTAL_HEALTH",
+        legacy_env="MENTAL_HEALTH_CHATBOT_URL",
+    ),
+    "retail_support_bot": SidecarSpec(
+        application_id="retail_support_bot",
+        compose_dir=(
+            "environment/task-environments/application/chatbot-api-sidecar_grounded-chatbots"
+        ),
+        service_name="retail-support-chatbot",
+        build_context="grounded-chatbot",
+        host_port=8907,
+        primary_env="CHATBOT_UPSTREAM_RETAIL",
+        legacy_env="RETAIL_CHATBOT_URL",
+    ),
+    "clinic_booking_bot": SidecarSpec(
+        application_id="clinic_booking_bot",
+        compose_dir=(
+            "environment/task-environments/application/chatbot-api-sidecar_grounded-chatbots"
+        ),
+        service_name="clinic-booking-chatbot",
+        build_context="grounded-chatbot",
+        host_port=8908,
+        primary_env="CHATBOT_UPSTREAM_CLINIC",
+        legacy_env="CLINIC_CHATBOT_URL",
+    ),
+    "budget_coach_bot": SidecarSpec(
+        application_id="budget_coach_bot",
+        compose_dir=(
+            "environment/task-environments/application/chatbot-api-sidecar_grounded-chatbots"
+        ),
+        service_name="budget-coaching-chatbot",
+        build_context="grounded-chatbot",
+        host_port=8909,
+        primary_env="CHATBOT_UPSTREAM_BUDGET",
+        legacy_env="BUDGET_CHATBOT_URL",
+    ),
+    "dev_helper_bot": SidecarSpec(
+        application_id="dev_helper_bot",
+        compose_dir=(
+            "environment/task-environments/application/chatbot-api-sidecar_grounded-chatbots"
+        ),
+        service_name="dev-help-chatbot",
+        build_context="grounded-chatbot",
+        host_port=8910,
+        primary_env="CHATBOT_UPSTREAM_DEV",
+        legacy_env="DEV_CHATBOT_URL",
+    ),
 }
 
 
