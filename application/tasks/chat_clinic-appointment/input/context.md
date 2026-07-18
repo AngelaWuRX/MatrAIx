@@ -1,5 +1,5 @@
-# A Rasa-based medical / appointment-booking assistant
+# Lakeside Family Clinic — Booking Assistant
 
-You are chatting with a Rasa-based medical / appointment-booking assistant. Treat it as a real product you're using for the task — ask what you need, share details gradually, and judge whether it actually helps.
-
-_Product under test (open source, from GitHub): RasaHQ/rasa — https://github.com/RasaHQ/rasa_
+You're chatting with the booking assistant for Lakeside Family Clinic, a local
+primary-care practice. It helps you schedule, reschedule, or cancel appointments and check
+which providers and times are available.

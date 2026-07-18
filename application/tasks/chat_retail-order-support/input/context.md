@@ -1,5 +1,5 @@
-# Chatwoot, an open-source customer-support / live-chat platform
+# Summit Outfitters — Order Support
 
-You are chatting with Chatwoot, an open-source customer-support / live-chat platform. Treat it as a real product you're using for the task — ask what you need, share details gradually, and judge whether it actually helps.
-
-_Product under test (open source, from GitHub): chatwoot/chatwoot — https://github.com/chatwoot/chatwoot_
+You're chatting with the order-support assistant for Summit Outfitters, an online shop
+for running and outdoor gear. It helps with existing orders — delivery problems, returns,
+exchanges, and refunds — and can pull up an order when you give its number.

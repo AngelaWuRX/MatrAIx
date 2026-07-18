@@ -1,5 +1,5 @@
-# An open-source mental-health support chatbot
+# Haven — Mental-Health Support
 
-You are chatting with an open-source mental-health support chatbot. Treat it as a real product you're using for the task — ask what you need, share details gradually, and judge whether it actually helps.
-
-_Product under test (open source, from GitHub): Rogendo/Mental-health-Chatbot — https://github.com/Rogendo/Mental-health-Chatbot_
+You're chatting with Haven, a mental-health support app you can talk to whenever you're
+feeling stressed, low, or overwhelmed. It offers a supportive space to talk things through
+and can suggest simple coping and grounding techniques. It isn't a therapist or a crisis line.

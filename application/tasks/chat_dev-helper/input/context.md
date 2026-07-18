@@ -1,5 +1,5 @@
-# LibreChat, an open-source AI assistant used for coding help
+# DevMate — Coding Assistant
 
-You are chatting with LibreChat, an open-source AI assistant used for coding help. Treat it as a real product you're using for the task — ask what you need, share details gradually, and judge whether it actually helps.
-
-_Product under test (open source, from GitHub): danny-avila/LibreChat — https://github.com/danny-avila/LibreChat_
+You're chatting with DevMate, an AI assistant for programming help. Describe a bug, paste
+an error, or ask how to do something in code, and it will suggest a fix and explain what
+went wrong.
