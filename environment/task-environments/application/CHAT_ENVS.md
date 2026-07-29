@@ -17,7 +17,17 @@ Pick the sidecar **by the persona-facing protocol** (`input/chatbot.yaml`
 | `chatbot-mcp-sidecar_acme-support/` | `example-chat-mcp_support_chatbot` | MCP |
 | `chatbot-api-sidecar_multi-agent-medical-assistant/` | `chat_multi-agent-medical-assistant` | HTTP adapter over product upstream |
 | `chatbot-api-sidecar_meal-plan-api/` | `chat_meal-planning-nutrition` | HTTP |
-| `chatbot-api-sidecar_grounded-chatbots/` | `chat_mental-health-support`, `chat_retail-order-support`, `chat_clinic-appointment`, `chat_dev-helper` | HTTP (one image, four services by `SIDECAR_BOT`) |
+| `chatbot-api-sidecar_mental-health-support/` | `chat_mental-health-support` | HTTP |
+| `chatbot-api-sidecar_retail-order-support/` | `chat_retail-order-support` | HTTP |
+| `chatbot-api-sidecar_clinic-appointment/` | `chat_clinic-appointment` | HTTP |
+| `chatbot-api-sidecar_dev-helper/` | `chat_dev-helper` | HTTP |
+
+One directory per task, with a **single** service each. The runtime resolves
+one primary service per `local_compose` dir
+(`pick_primary_sidecar_service` → `services[0]`) and has no per-task awareness,
+so several co-equal bots sharing one compose file would all resolve to the same
+service. Multi-service dirs above (`openbb`, `multi-agent-medical-assistant`)
+are one primary plus a backing dependency, not co-equal bots.
 
 ```toml
 [environment]
