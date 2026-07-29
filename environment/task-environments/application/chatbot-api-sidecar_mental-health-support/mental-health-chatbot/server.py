@@ -60,6 +60,14 @@ _MH_EASED = [
     "the two tonight?",
     "You've got two things that work now: the breathing when your mind races, "
     "and a calmer hour before sleep. How are you feeling about tonight?",
+    "If it helps, the 5-4-3-2-1 exercise works the same way when you're away "
+    "from home — name five things you can see, then four you can feel.",
+    "None of this has to fix the work situation to be worth doing. Getting "
+    "your body out of alarm first usually makes the rest easier to face.",
+    "If the sleep doesn't ease up over a couple of weeks, it's worth mentioning "
+    "to a GP or counsellor — that's a practical step, not a big one.",
+    "You handled a hard week by reaching out, which isn't nothing.",
+    "I'm glad you checked in tonight. Be gentle with yourself.",
 ]
 
 _MH_CONTINUE = [
@@ -71,6 +79,15 @@ _MH_CONTINUE = [
     "hardest?",
     "I hear you. We don't have to fix all of it tonight. Is there one piece "
     "that feels the most urgent to set down?",
+    "Being behind at work has a way of following you home. What would 'enough "
+    "for today' look like, if you got to define it?",
+    "You've been carrying this a while by the sound of it. Has anything helped "
+    "even slightly before — sleep, movement, talking to someone?",
+    "It's okay if the answer is 'nothing much'. Sometimes naming that is the "
+    "honest starting point.",
+    "Whatever you decide to try, one small thing repeated beats a big plan you "
+    "can't sustain this week.",
+    "I'm still here. Take whatever time you need.",
 ]
 
 

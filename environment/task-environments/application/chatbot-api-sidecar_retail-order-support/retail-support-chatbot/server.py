@@ -56,7 +56,14 @@ _RETAIL_FOLLOWUPS = [
     "a size small, so the US 10 should sit right. Anything else before I close "
     "this out?",
     "Thanks for your patience with the mix-up — I've noted it on the order so "
-    "the warehouse sees it. Take care.",
+    "the warehouse sees it.",
+    "No rush on the return: the label doesn't expire for 30 days, and you keep "
+    "the replacement either way.",
+    "If the US 10 also runs short, reply on this same thread and I'll send a "
+    "10.5 without another return.",
+    "That's everything handled on my side. Your confirmation email should have "
+    "landed by now.",
+    "Glad we got it sorted. Enjoy the shoes once they arrive.",
 ]
 
 
