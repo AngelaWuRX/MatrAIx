@@ -248,6 +248,26 @@ def root():
     return jsonify({"status": "ok", "bot": BOT})
 
 
+@app.get("/ready")
+@app.get("/v1/ready")
+def ready():
+    # Exercise the reply path so "Service up" means this bot can actually
+    # answer, not merely that the process is listening.
+    handler = _HANDLERS.get(BOT)
+    if handler is None:
+        return jsonify({"status": "error", "detail": "unknown bot: {}".format(BOT)}), 503
+    reply, _ = handler({"turn": 0, "messages": []}, "hello")
+    if not str(reply).strip():
+        return jsonify({"status": "error", "detail": "empty bot reply"}), 503
+    return jsonify(
+        {
+            "status": "ready",
+            "bot": BOT,
+            "capabilities": ["text_chat", "structured_exposure"],
+        }
+    )
+
+
 @app.post("/v1/messages")
 def post_message():
     payload = request.get_json(silent=True) or {}
