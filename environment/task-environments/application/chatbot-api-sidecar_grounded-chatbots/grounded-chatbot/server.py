@@ -286,11 +286,21 @@ def post_message():
 
     state["messages"].append({"role": "assistant", "content": reply})
     state["turn"] += 1
+    # `turn` is an OBJECT, not the turn counter: the eval harness does
+    # `dict(response[turnField])` and merges it over the response before
+    # resolving structuredExposure selectors. Returning a bare int raises
+    # "'int' object is not iterable" and fails every trial. Mirrors the
+    # openbb finance-chatbot payload.
     return jsonify(
         {
             "sessionId": session_id,
             "reply": reply,
-            "turn": state["turn"],
+            "turn": {
+                "conversationId": session_id,
+                "assistantMessage": reply,
+                "turnIndex": state["turn"],
+                "recommendedItems": recommended,
+            },
             "recommendedItems": recommended,
         }
     )
