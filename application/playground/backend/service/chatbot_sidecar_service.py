@@ -95,17 +95,18 @@ _SIDECAR_SPECS: dict[str, SidecarSpec] = {
         primary_env="CHATBOT_API_URL",
         legacy_env=None,
     ),
-    # Grounded chatbot tasks (chat_mental-health-support, chat_retail-order-support,
-    # chat_clinic-appointment, chat_dev-helper). One image, four services, selected
-    # by SIDECAR_BOT; see
-    # environment/task-environments/application/chatbot-api-sidecar_grounded-chatbots.
+    # Grounded chatbot tasks. One sidecar directory per task with a single
+    # service each: the runtime resolves one primary service per local_compose
+    # dir (pick_primary_sidecar_service -> services[0]), so co-locating several
+    # co-equal bots in one compose file would route every task to the same one.
     "mental_health_bot": SidecarSpec(
         application_id="mental_health_bot",
         compose_dir=(
-            "environment/task-environments/application/chatbot-api-sidecar_grounded-chatbots"
+            "environment/task-environments/application/"
+            "chatbot-api-sidecar_mental-health-support"
         ),
-        service_name="mental-health-support-chatbot",
-        build_context="grounded-chatbot",
+        service_name="mental-health-chatbot",
+        build_context="mental-health-chatbot",
         host_port=8906,
         primary_env="CHATBOT_UPSTREAM_MENTAL_HEALTH",
         legacy_env="MENTAL_HEALTH_CHATBOT_URL",
@@ -113,10 +114,11 @@ _SIDECAR_SPECS: dict[str, SidecarSpec] = {
     "retail_support_bot": SidecarSpec(
         application_id="retail_support_bot",
         compose_dir=(
-            "environment/task-environments/application/chatbot-api-sidecar_grounded-chatbots"
+            "environment/task-environments/application/"
+            "chatbot-api-sidecar_retail-order-support"
         ),
         service_name="retail-support-chatbot",
-        build_context="grounded-chatbot",
+        build_context="retail-support-chatbot",
         host_port=8907,
         primary_env="CHATBOT_UPSTREAM_RETAIL",
         legacy_env="RETAIL_CHATBOT_URL",
@@ -124,10 +126,11 @@ _SIDECAR_SPECS: dict[str, SidecarSpec] = {
     "clinic_booking_bot": SidecarSpec(
         application_id="clinic_booking_bot",
         compose_dir=(
-            "environment/task-environments/application/chatbot-api-sidecar_grounded-chatbots"
+            "environment/task-environments/application/"
+            "chatbot-api-sidecar_clinic-appointment"
         ),
         service_name="clinic-booking-chatbot",
-        build_context="grounded-chatbot",
+        build_context="clinic-booking-chatbot",
         host_port=8908,
         primary_env="CHATBOT_UPSTREAM_CLINIC",
         legacy_env="CLINIC_CHATBOT_URL",
@@ -135,10 +138,10 @@ _SIDECAR_SPECS: dict[str, SidecarSpec] = {
     "dev_helper_bot": SidecarSpec(
         application_id="dev_helper_bot",
         compose_dir=(
-            "environment/task-environments/application/chatbot-api-sidecar_grounded-chatbots"
+            "environment/task-environments/application/chatbot-api-sidecar_dev-helper"
         ),
         service_name="dev-help-chatbot",
-        build_context="grounded-chatbot",
+        build_context="dev-help-chatbot",
         host_port=8909,
         primary_env="CHATBOT_UPSTREAM_DEV",
         legacy_env="DEV_CHATBOT_URL",
