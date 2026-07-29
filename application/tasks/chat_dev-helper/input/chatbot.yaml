@@ -1,4 +1,4 @@
-transport: external_http
+transport: sidecar_http
 runtimeDefaults:
   applicationId: dev_helper_bot
   applicationContext: dev_help
