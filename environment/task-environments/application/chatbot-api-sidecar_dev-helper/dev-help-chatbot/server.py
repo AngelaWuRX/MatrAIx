@@ -45,11 +45,38 @@ _DEV_ITEMS = [
 ]
 
 
+_DEV_FOLLOWUPS = [
+    "Here's the logging variant, so you can see which records are incomplete:\n\n"
+    "```python\n"
+    "name = data.get('user', {}).get('name')\n"
+    "if name is None:\n"
+    "    logger.warning('record %s has no user.name', data.get('id'))\n"
+    "    name = 'unknown'\n"
+    "```\n\n"
+    "Want me to show the same pattern with `dataclasses` or `pydantic` so the "
+    "shape is validated once at the boundary instead?",
+    "If this feed is missing fields often, validating once on ingest beats "
+    "`.get()` at every call site — `pydantic` with a default on `name` gives "
+    "you one place to fix it. Would that fit your pipeline?",
+    "Glad that helped. Ping me with the traceback if another key bites you.",
+    "If you want a belt-and-braces version, a small `require_fields()` helper "
+    "that raises one clear error listing every missing key beats debugging a "
+    "bare `KeyError` later. Want a sketch of that?",
+    "Sounds good — the `.get()` fix will stop the crash today, and validating "
+    "on ingest is the cleanup when you have time. Good luck with it.",
+]
+
+
 def _dev_helper(state: dict, msg: str) -> tuple[str, list[str]]:
     text = msg.lower()
     if _has(text, "keyerror", "'name'", "data['user']", "python", "crash",
             "missing", "nested"):
         state["problem_known"] = True
+    # After the fix is given, go deeper instead of repeating the same snippet.
+    if state.get("resolved"):
+        i = state.get("followup", 0)
+        state["followup"] = i + 1
+        return (_DEV_FOLLOWUPS[min(i, len(_DEV_FOLLOWUPS) - 1)], _DEV_ITEMS)
     if state.get("problem_known"):
         state["resolved"] = True
         return (
