@@ -3,6 +3,9 @@ runtimeDefaults:
   applicationId: dev_helper_bot
   applicationContext: dev_help
   domain: dev_help
+capabilities:
+  - text_chat
+  - structured_exposure
 connection:
   baseUrlEnv: CHATBOT_UPSTREAM_DEV
   legacyBaseUrlEnv: DEV_CHATBOT_URL
@@ -25,7 +28,7 @@ protocol:
     replyField: reply
     turnField: turn
     recommendedItemsField: recommendedItems
-personaExposure:
+structuredExposure:
   fields:
     - key: recommendedItems
       label: Suggested fixes or references

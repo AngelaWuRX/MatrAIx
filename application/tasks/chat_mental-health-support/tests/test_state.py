@@ -13,16 +13,24 @@ import sys
 from pathlib import Path
 from typing import Any
 
-OUTPUT_DIR = Path(os.environ.get("PERSONABENCH_OUTPUT_DIR") or os.environ.get("MATRIX_OUTPUT_DIR") or "/app/output")
+OUTPUT_DIR = Path(
+    os.environ.get("HARBOR_OUTPUT_DIR")
+    or os.environ.get("MATRIX_OUTPUT_DIR")
+    or os.environ.get("PERSONABENCH_OUTPUT_DIR")
+    or "/app/output"
+)
 TRANSCRIPT_PATH = OUTPUT_DIR / "transcript.json"
 FEEDBACK_PATH = OUTPUT_DIR / "user_feedback.json"
 
+# Keyed by the transcript's botType when present, else its domain — so include both
+# the applicationId-style key and the runtimeDefaults.domain value for each task.
 GOAL_BY_BOT = {
+    "dev_help": "Get a working solution to a coding question",
+    "dev_helper": "Get a working solution to a coding question",
+    "clinic_booking": "Book a clinic appointment with safe triage",
+    "mental_health_support": "Get supportive, safe emotional-support guidance",
     "mental_health": "Get supportive, safe emotional-support guidance",
     "retail_support": "Resolve an order or customer-support issue",
-    "clinic_booking": "Book a clinic appointment with safe triage",
-    "budget_coach": "Get budgeting guidance within the assistant's scope",
-    "dev_helper": "Get a working solution to a coding question",
 }
 
 
@@ -107,8 +115,11 @@ def verifier_dir() -> Path:
     return p
 
 
-def facet(key, label, role, kind, value):
-    return {"key": key, "label": label, "role": role, "kind": kind, "value": value}
+def facet(key, label, role, kind, value, explains=None):
+    f = {"key": key, "label": label, "role": role, "kind": kind, "value": value}
+    if explains:
+        f["explainsFacetKey"] = explains
+    return f
 
 
 def main() -> int:
@@ -139,7 +150,8 @@ def main() -> int:
             facet("outcome_status", "Outcome status", "primary", "categorical", outcome),
             facet("resolution_basis", "Resolution basis", "primary", "categorical",
                   "user_feedback" if fb else "conversation_commitment"),
-            facet("outcome_reason", "Outcome reason", "explanation", "textual", reason),
+            facet("outcome_reason", "Outcome reason", "explanation", "textual", reason,
+                  explains="outcome_status"),
             facet("next_step_owner", "Next step owner", "evidence", "categorical",
                   "none" if outcome == "resolved" else "agent"),
             facet("task_goal_label", "Task goal", "evidence", "textual", goal),
@@ -152,7 +164,8 @@ def main() -> int:
             facet("message_count", "Message count", "score", "numerical", len(messages)),
             facet("clarification_question_count", "Clarification question count", "score", "numerical", qcount),
             facet("process_notes", "Process notes", "explanation", "textual",
-                  f"{user_turns} user / {asst_turns} assistant turns; {qcount} clarification question(s)."),
+                  f"{user_turns} user / {asst_turns} assistant turns; {qcount} clarification question(s).",
+                  explains="conversation_path"),
         ]},
     ]
     if fb is not None:
@@ -160,7 +173,8 @@ def main() -> int:
                          "contextType": "user_feedback", "facets": [
             facet("overall_experience_rating", "Overall experience rating", "score", "numerical",
                   int(fb["overallExperienceRating"])),
-            facet("feedback_reason", "Feedback reason", "explanation", "textual", reason),
+            facet("feedback_reason", "Feedback reason", "explanation", "textual", reason,
+                  explains="personal_preference_satisfaction"),
             facet("need_constraint_satisfaction", "Need or constraint satisfaction", "evidence", "categorical", need),
             facet("personal_preference_satisfaction", "Personal preference satisfaction", "evidence", "categorical", pref),
             facet("clarification_questions_useful", "Clarification questions useful", "primary", "categorical",
@@ -168,7 +182,7 @@ def main() -> int:
         ]})
 
     (verifier_dir() / "structured_output.json").write_text(json.dumps({
-        "schemaVersion": "1.0", "artifactType": "personabench.trial_evaluation", "taskType": "chatbot",
+        "schemaVersion": "1.0", "artifactType": "matraix.trial_evaluation", "taskType": "chatbot",
         "presenceCheck": {"passed": True, "requiredArtifacts": ["transcript.json"], "missingArtifacts": []},
         "sourceArtifacts": {"transcript": str(TRANSCRIPT_PATH),
                             **({"userFeedback": str(FEEDBACK_PATH)} if fb else {})},
