@@ -1,4 +1,4 @@
-transport: external_http
+transport: sidecar_http
 runtimeDefaults:
   applicationId: retail_support_bot
   applicationContext: retail_support

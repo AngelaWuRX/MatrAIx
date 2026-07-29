@@ -1,4 +1,4 @@
-transport: external_http
+transport: sidecar_http
 runtimeDefaults:
   applicationId: mental_health_bot
   applicationContext: mental_health_support
