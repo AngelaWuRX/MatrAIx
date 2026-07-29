@@ -51,6 +51,29 @@ _MH_RESOURCES = [
 ]
 
 
+_MH_EASED = [
+    "I'm really glad it took even a little of the edge off. You can come back "
+    "to box breathing any time your mind starts to spin. Would a short "
+    "wind-down routine for the hour before bed be useful too?",
+    "That's worth noticing — your body responded. Keeping screens out of the "
+    "last hour before bed tends to compound that effect. Want to try pairing "
+    "the two tonight?",
+    "You've got two things that work now: the breathing when your mind races, "
+    "and a calmer hour before sleep. How are you feeling about tonight?",
+]
+
+_MH_CONTINUE = [
+    "Thank you for sharing that. Whenever you're ready, we can try a quick "
+    "grounding exercise — or we can just keep talking it through. What would "
+    "help most right now?",
+    "That makes sense, and it's a lot to hold. If naming it out loud helps "
+    "more than an exercise right now, I'm here for that too — what's been "
+    "hardest?",
+    "I hear you. We don't have to fix all of it tonight. Is there one piece "
+    "that feels the most urgent to set down?",
+]
+
+
 def _mental_health(state: dict, msg: str) -> tuple[str, list[str]]:
     text = msg.lower()
     if _CRISIS_RE.search(msg):
@@ -81,19 +104,14 @@ def _mental_health(state: dict, msg: str) -> tuple[str, list[str]]:
             "me how your body feels afterward?",
             _MH_RESOURCES,
         )
+    # Vary later turns so a long conversation doesn't repeat one reply verbatim.
+    i = state.get("followup", 0)
+    state["followup"] = i + 1
     if _has(text, "better", "calmer", "helped", "grounded", "a bit", "little"):
-        return (
-            "I'm really glad it took even a little of the edge off. You can come "
-            "back to box breathing any time your mind starts to spin. Would a "
-            "short wind-down routine for the hour before bed be useful too?",
-            _MH_RESOURCES,
-        )
-    return (
-        "Thank you for sharing that. Whenever you're ready, we can try a quick "
-        "grounding exercise — or we can just keep talking it through. What "
-        "would help most right now?",
-        _MH_RESOURCES,
-    )
+        pool = _MH_EASED
+    else:
+        pool = _MH_CONTINUE
+    return (pool[min(i, len(pool) - 1)], _MH_RESOURCES)
 
 _handler = _mental_health
 

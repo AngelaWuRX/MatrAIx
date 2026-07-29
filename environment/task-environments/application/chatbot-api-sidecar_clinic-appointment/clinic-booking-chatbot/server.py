@@ -45,10 +45,25 @@ _CLINIC_SLOTS = [
 ]
 
 
+_CLINIC_FOLLOWUPS = [
+    "You're booked for **Tue 8:30 AM with Dr. Lee** — a reminder goes out the "
+    "day before. Would you like the visit added to your calendar?",
+    "Nothing else is needed. If you'd like to move it, weekday mornings stay "
+    "open for the next two weeks — just say the word.",
+    "All set on my end. Bring your insurance card and arrive about 10 minutes "
+    "early; message here if anything changes.",
+]
+
+
 def _clinic_booking(state: dict, msg: str) -> tuple[str, list[str]]:
     text = msg.lower()
     if _has(text, "physical", "check-up", "checkup", "annual", "routine"):
         state["reason_known"] = True
+    # Once booked, move the conversation on rather than re-confirming verbatim.
+    if state.get("resolved"):
+        i = state.get("followup", 0)
+        state["followup"] = i + 1
+        return (_CLINIC_FOLLOWUPS[min(i, len(_CLINIC_FOLLOWUPS) - 1)], _CLINIC_SLOTS)
     if state.get("offered") and _has(
         text, "tue", "wed", "thu", "8:30", "9:15", "morning", "lee", "yes",
         "confirm", "book", "that works", "first", "sounds good",

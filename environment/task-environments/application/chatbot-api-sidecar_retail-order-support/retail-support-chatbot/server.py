@@ -45,10 +45,31 @@ _RETAIL_ITEMS = [
 ]
 
 
+_RETAIL_FOLLOWUPS = [
+    "You're all set: the **US 10 replacement for #W-2087** is confirmed and the "
+    "prepaid label is in your inbox. Is there anything else I can look at?",
+    "Nothing further is needed from you — just drop the US 8 pair off whenever "
+    "it suits. Would you like the tracking number sent by text as well?",
+    "Happy to help. I'll leave the exchange open in case anything looks off when "
+    "the new pair lands — reply here any time.",
+    "One last thing worth knowing: the size chart on that model runs about half "
+    "a size small, so the US 10 should sit right. Anything else before I close "
+    "this out?",
+    "Thanks for your patience with the mix-up — I've noted it on the order so "
+    "the warehouse sees it. Take care.",
+]
+
+
 def _retail_support(state: dict, msg: str) -> tuple[str, list[str]]:
     text = msg.lower()
     if "w-2087" in text or re.search(r"\b2087\b", text):
         state["order_known"] = True
+    # Once the exchange is arranged, keep the conversation moving instead of
+    # repeating the confirmation verbatim on every later turn.
+    if state.get("resolved"):
+        i = state.get("followup", 0)
+        state["followup"] = i + 1
+        return (_RETAIL_FOLLOWUPS[min(i, len(_RETAIL_FOLLOWUPS) - 1)], _RETAIL_ITEMS)
     if _has(text, "refund", "money back", "store credit") and not _has(
         text, "not a refund", "no refund", "instead of a refund", "replacement"
     ):
