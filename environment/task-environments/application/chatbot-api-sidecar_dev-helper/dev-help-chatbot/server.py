@@ -63,7 +63,16 @@ _DEV_FOLLOWUPS = [
     "that raises one clear error listing every missing key beats debugging a "
     "bare `KeyError` later. Want a sketch of that?",
     "Sounds good — the `.get()` fix will stop the crash today, and validating "
-    "on ingest is the cleanup when you have time. Good luck with it.",
+    "on ingest is the cleanup when you have time.",
+    "One caveat: `data.get('user', {})` builds a throwaway dict per call. In a "
+    "hot loop, hoist it or use `contextlib.suppress(KeyError)` instead.",
+    "If you want the missing-field count without noisy logs, tally them in a "
+    "`collections.Counter` and print once at the end of the run.",
+    "Worth a regression test too: feed a record with no `name` and assert you "
+    "get `'unknown'` rather than an exception.",
+    "That should cover it — the crash is handled and you have a path to make "
+    "the shape explicit later.",
+    "Good luck with the run. Ping me if another key surprises you.",
 ]
 
 

@@ -52,6 +52,14 @@ _CLINIC_FOLLOWUPS = [
     "open for the next two weeks — just say the word.",
     "All set on my end. Bring your insurance card and arrive about 10 minutes "
     "early; message here if anything changes.",
+    "If you'd like lab work done the same morning, come in fasting and Dr. Lee "
+    "can order it during the visit.",
+    "Parking is free in the lot behind the building — tell the front desk you're "
+    "here for an 8:30 physical.",
+    "You can cancel or move the appointment up to 24 hours ahead with no fee, "
+    "either here or by phone.",
+    "Nothing further is needed from you before Tuesday.",
+    "Take care, and we'll see you Tuesday morning.",
 ]
 
 
