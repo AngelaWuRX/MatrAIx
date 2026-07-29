@@ -2,7 +2,7 @@ version = "1.0"
 artifacts = ["/app/output"]
 
 [task]
-name = "application/chat-mental-health-support"
+name = "application/mental-health-support"
 
 [metadata]
 difficulty = "medium"

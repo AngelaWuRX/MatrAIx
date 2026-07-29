@@ -3,6 +3,9 @@ runtimeDefaults:
   applicationId: retail_support_bot
   applicationContext: retail_support
   domain: retail_support
+capabilities:
+  - text_chat
+  - structured_exposure
 connection:
   baseUrlEnv: CHATBOT_UPSTREAM_RETAIL
   legacyBaseUrlEnv: RETAIL_CHATBOT_URL
@@ -25,7 +28,7 @@ protocol:
     replyField: reply
     turnField: turn
     recommendedItemsField: recommendedItems
-personaExposure:
+structuredExposure:
   fields:
     - key: recommendedItems
       label: Suggested resolutions or order actions

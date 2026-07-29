@@ -3,6 +3,9 @@ runtimeDefaults:
   applicationId: clinic_booking_bot
   applicationContext: clinic_booking
   domain: clinic_booking
+capabilities:
+  - text_chat
+  - structured_exposure
 connection:
   baseUrlEnv: CHATBOT_UPSTREAM_CLINIC
   legacyBaseUrlEnv: CLINIC_CHATBOT_URL
@@ -25,7 +28,7 @@ protocol:
     replyField: reply
     turnField: turn
     recommendedItemsField: recommendedItems
-personaExposure:
+structuredExposure:
   fields:
     - key: recommendedItems
       label: Suggested appointment slots

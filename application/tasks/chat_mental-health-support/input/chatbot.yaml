@@ -3,6 +3,9 @@ runtimeDefaults:
   applicationId: mental_health_bot
   applicationContext: mental_health_support
   domain: mental_health_support
+capabilities:
+  - text_chat
+  - structured_exposure
 connection:
   baseUrlEnv: CHATBOT_UPSTREAM_MENTAL_HEALTH
   legacyBaseUrlEnv: MENTAL_HEALTH_CHATBOT_URL
@@ -25,7 +28,7 @@ protocol:
     replyField: reply
     turnField: turn
     recommendedItemsField: recommendedItems
-personaExposure:
+structuredExposure:
   fields:
     - key: recommendedItems
       label: Suggested coping resources or hotlines
